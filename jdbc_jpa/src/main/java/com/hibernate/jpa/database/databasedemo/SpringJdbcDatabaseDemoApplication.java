@@ -10,16 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.hibernate.jpa.database.databasedemo.entity.Person;
 import com.hibernate.jpa.database.databasedemo.jdbc.PersonJdbcDao;
 
-@SpringBootApplication
-public class DatabaseDemoApplication implements CommandLineRunner {
+//@SpringBootApplication
+public class SpringJdbcDatabaseDemoApplication implements CommandLineRunner {
 	
-	private Logger log = LoggerFactory.getLogger(DatabaseDemoApplication.class);
+	private Logger log = LoggerFactory.getLogger(SpringJdbcDatabaseDemoApplication.class);
 
 	@Autowired
 	PersonJdbcDao dao;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(DatabaseDemoApplication.class, args);
+		SpringApplication.run(SpringJdbcDatabaseDemoApplication.class, args);
 	}
 
 	@Override
