@@ -1,3 +1,5 @@
+/*
+Table schema autocreated using the @Entity annotation
 create table person
 ( 
 	id integer not null,
@@ -5,7 +7,7 @@ create table person
     location varchar(200),
     primary key(id)
 );
-
+*/
 
 INSERT INTO PERSON
 (ID , NAME , LOCATION )
