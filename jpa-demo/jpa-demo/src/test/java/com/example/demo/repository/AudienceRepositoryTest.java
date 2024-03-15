@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.Artist;
-import com.example.demo.entity.Audience;
-import com.example.demo.entity.Genre;
+import com.example.demo.data.entity.Artist;
+import com.example.demo.data.entity.Audience;
+import com.example.demo.data.entity.Genre;
+import com.example.demo.data.repository.AudienceRepository;
 
 import jakarta.persistence.EntityManager;
 
