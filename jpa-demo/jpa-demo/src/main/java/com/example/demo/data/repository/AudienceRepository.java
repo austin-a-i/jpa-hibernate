@@ -1,11 +1,11 @@
-package com.example.demo.repository;
+package com.example.demo.data.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.Audience;
-import com.example.demo.entity.Genre;
+import com.example.demo.data.entity.Audience;
+import com.example.demo.data.entity.Genre;
 
 import jakarta.persistence.EntityManager;
 

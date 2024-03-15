@@ -11,8 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.Artist;
-import com.example.demo.entity.Song;
+import com.example.demo.data.entity.Artist;
+import com.example.demo.data.entity.Song;
+import com.example.demo.data.repository.ArtistRepository;
 
 import jakarta.persistence.EntityManager;
 

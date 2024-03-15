@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,28 +10,22 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.entity.Artist;
-import com.example.demo.entity.Audience;
-import com.example.demo.entity.Song;
-import com.example.demo.inheritance.entity.FullTimeEmployee;
-import com.example.demo.inheritance.entity.PartTimeEmployee;
-import com.example.demo.inheritance.entity.repository.EmployeeRepository;
-import com.example.demo.repository.ArtistRepository;
-import com.example.demo.repository.AudienceRepository;
+import com.example.demo.data.entity.Artist;
+import com.example.demo.data.entity.Audience;
+import com.example.demo.data.entity.Song;
+import com.example.demo.data.repository.ArtistRepository;
+import com.example.demo.data.repository.AudienceRepository;
 
 @SpringBootApplication
 public class HibernatejpaDemoApplication implements CommandLineRunner {
 	
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	//private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private ArtistRepository artistRepository;
 	
 	@Autowired
 	private AudienceRepository audienceRepository;
-	
-	@Autowired
-	private EmployeeRepository employeeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HibernatejpaDemoApplication.class, args);
@@ -68,19 +61,9 @@ public class HibernatejpaDemoApplication implements CommandLineRunner {
 		 * Audience("EDM"));
 		 */
 		
-		/*
-		 * List<Artist> artist = new ArrayList<Artist>(); 
-		 * artist.add(new Artist("Ben Platt")); 
-		 * artistRepository.retrieveArtistsWithGenre(4001, artist);
-		 */
+		List<Artist> artist = new ArrayList<Artist>();
+		artist.add(new Artist("Ben Platt"));
+		artistRepository.retrieveArtistsWithGenre(4001, artist);
 		
-		/*
-		 * Employee Inheritance
-		 * employeeRepository.insertEmployee(new FullTimeEmployee("Sylvester", new
-		 * BigDecimal("2400"))); employeeRepository.insertEmployee(new
-		 * PartTimeEmployee("Stallone", new BigDecimal("50")));
-		 * 
-		 * log.info("Retreieve All -> {}", employeeRepository.retrieveAllEmployees());
-		 */
 	}
 }

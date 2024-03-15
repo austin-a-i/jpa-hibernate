@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.demo.entity.Artist;
+import com.example.demo.data.entity.Artist;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
