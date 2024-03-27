@@ -5,14 +5,14 @@ values (4002, 'Indie');
 insert into genre(id, genre)
 values (4003, 'Rock');
 
-insert into artist(id, name,genre_id)
-values (1001, 'Ed Sheeran', 4001);
-insert into artist(id, name,genre_id)
-values (1002, 'Harry Styles', 4001);
-insert into artist(id, name,genre_id)
-values (1003, 'Novo Amor', 4002);
-insert into artist(id, name,genre_id)
-values (1004, 'Lumineers', 4002);
+insert into artist(id, name,genre_id,place_of_origin)
+values (1001, 'Ed Sheeran', 4001, England);
+insert into artist(id, name,genre_id,place_of_origin)
+values (1002, 'Harry Styles', 4001, England);
+insert into artist(id, name,genre_id,place_of_origin)
+values (1003, 'Novo Amor', 4002, USA);
+insert into artist(id, name,genre_id,place_of_origin)
+values (1004, 'Lumineers', 4002, USA);
 
 insert into audience(id, name, genre_id)
 values (2001, 'Pop', 4001);
