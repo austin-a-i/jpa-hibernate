@@ -1,10 +1,14 @@
 package com.example.demo.data.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +22,8 @@ import com.example.demo.data.entity.Artist;
 import com.example.demo.data.exception.ResourceNotFoundException;
 import com.example.demo.data.service.ArtistDaoService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class ArtistController {
 	
@@ -30,20 +36,25 @@ public class ArtistController {
 	
 	@GetMapping("/artists")
 	public List<Artist> retrieveAllArtists() {
-		return artistService.getAllArtists();	
+		return artistService.getAllArtists();
 	}
 
 	@GetMapping("/artists/{id}")
-	public Optional<Artist> retrieveArtistById(@PathVariable long id) {
+	public EntityModel<Optional<Artist>> retrieveArtistById(@PathVariable long id) {
 		Optional<Artist> artist = artistService.getArtist(id);
 		if (! artist.isPresent()) {
 			throw new ResourceNotFoundException("Not found id: " + id);
 		}
-		return artist;	
+		EntityModel<Optional<Artist>> entityModel = EntityModel.of(artist);
+		
+		WebMvcLinkBuilder link =  linkTo(methodOn(this.getClass()).retrieveAllArtists());
+		entityModel.add(link.withRel("all-artists"));
+		
+		return entityModel;
 	}
 	
 	@PostMapping("/artists")
-	public ResponseEntity<Artist> addArtist(@RequestBody Artist artist) {
+	public ResponseEntity<Artist> addArtist(@Valid @RequestBody Artist artist) {
 		Artist savedArtist = artistService.addArtist(artist);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 									.path("/{id}")

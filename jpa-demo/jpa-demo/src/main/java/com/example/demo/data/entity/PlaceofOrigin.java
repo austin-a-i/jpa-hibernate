@@ -4,13 +4,22 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class PlaceofOrigin {
-	String place_of_origin;
 
 	protected PlaceofOrigin() {}
 
 	public PlaceofOrigin(String place) {
 		super();
-		this.place_of_origin = place;
+		this.setPlace_of_origin(place);
 	}
+
+	public String getPlace_of_origin() {
+		return place_of_origin;
+	}
+
+	public void setPlace_of_origin(String place_of_origin) {
+		this.place_of_origin = place_of_origin;
+	}
+
+	private String place_of_origin;
 
 }

@@ -39,7 +39,7 @@ class JPQLTests {
 	
 	@Test
 	void testCreateTypedQuery_where() {
-		TypedQuery<Artist> query = entityManager.createQuery("select s from Songs s where name like '%Stars'", Artist.class);
+		TypedQuery<Artist> query = entityManager.createQuery("select s from Song s where name like '%Stars'", Artist.class);
 		List<Artist> resultList = query.getResultList(); 
 		log.info("select a from Artist a where name like '%Sheeran'-> {}", resultList);
 	}

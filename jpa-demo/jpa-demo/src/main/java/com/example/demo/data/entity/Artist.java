@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -18,7 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @NamedQueries(value = {
@@ -32,11 +35,20 @@ public class Artist {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	
+	/*
+	 * When @JsonProperty is used, you have to use the same property while creating a new Artist i.e, @PostMapping
+	 * else a 400 is thrown
+	 * */
 	@Column(nullable = false)
+	@Size(min = 2, message = "Name should have atleast two characters")
+	@JsonProperty("Artist")
 	private String name;
 	
 	@Embedded
-	@Column(name = "place_of_origin")
+	@AttributeOverrides(value = {
+	@AttributeOverride(name = "place_of_origin", column = @Column(name = "place_of_origin"))
+	})
 	private PlaceofOrigin place;
 	
 	//By Default, OnetoMany FetchType is LAZY
@@ -76,6 +88,7 @@ public class Artist {
 		this.name = name;
 	}
 	
+	@JsonProperty("Home")
 	public PlaceofOrigin getPlace_of_origin() {
 		return place;
 	}

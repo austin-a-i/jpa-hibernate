@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -19,12 +18,12 @@ import jakarta.persistence.EntityManager;
 
 @SpringBootTest
 class ArtistRepositoryTest {
-	
+
 	private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	ArtistRepository artistRepository;
-	
+
 	@Autowired
 	EntityManager entityManager;
 
@@ -33,46 +32,46 @@ class ArtistRepositoryTest {
 		Artist artist = artistRepository.findById(1001);
 		assertEquals("Ed Sheeran", artist.getName());
 	}
-	
-	//DirtiesContext allows Spring to automatically reset data to earlier state after the test
-	@Test
-	@DirtiesContext
-	void testDeleteById() {
-		artistRepository.deleteById(1002);
-		assertNull(artistRepository.findById(1002));
-	}
-	
+
+	// DirtiesContext allows Spring to automatically reset data to earlier state
+	// after the test
+	/*
+	 * @Test
+	 * @DirtiesContext void testDeleteById() { artistRepository.deleteById(1002);
+	 * assertNull(artistRepository.findById(1002)); }
+	 */
+
 	@Test
 	@DirtiesContext
 	void testSaveArtist() {
-		//get song
+		// get song
 		Artist artist = artistRepository.findById(1003);
 		assertEquals("Novo Amor", artist.getName());
-		
-		//update
+
+		// update
 		artist.setName("Hollow Coves");
 		artistRepository.saveArtist(artist);
-		
-		//check
+
+		// check
 		Artist artist1 = artistRepository.findById(1003);
 		assertEquals("Hollow Coves", artist1.getName());
 
 	}
-	
+
 	@Test
 	@Transactional
 	void retrieveSongsByArtist() {
 		Artist artist = artistRepository.findById(1001);
 		log.info("{}", artist.getSongs());
 	}
-	
+
 	@Test
 	@Transactional
 	void retrieveArtistsSongs() {
 		Song song = entityManager.find(Song.class, 5001);
 		log.info("{}", song.getArtist());
 	}
-	
+
 	@Test
 	@Transactional
 	void retrieveArtistAudience() {

@@ -2,13 +2,13 @@ package com.example.demo.data.exception;
 
 import java.time.LocalDateTime;
 
-public class ErrorDetails {
+public class ExceptionResponse {
 	
 	private LocalDateTime timestamp;
 	private String message;
 	private String details;
 	
-	public ErrorDetails(LocalDateTime timestamp, String message, String details) {
+	public ExceptionResponse(LocalDateTime timestamp, String message, String details) {
 		super();
 		this.timestamp = timestamp;
 		this.message = message;
