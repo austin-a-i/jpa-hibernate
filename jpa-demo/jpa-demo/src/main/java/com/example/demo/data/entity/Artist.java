@@ -3,9 +3,16 @@ package com.example.demo.data.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -14,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @NamedQueries(value = {
@@ -24,15 +32,29 @@ import jakarta.persistence.OneToMany;
 public class Artist {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	
+	/*
+	 * When @JsonProperty is used, you have to use the same property while creating a new Artist i.e, @PostMapping
+	 * else a 400 is thrown
+	 * */
 	@Column(nullable = false)
+	@Size(min = 2, message = "Name should have atleast two characters")
+	@JsonProperty("Artist")
 	private String name;
+	
+	@Embedded
+	@AttributeOverrides(value = {
+	@AttributeOverride(name = "place_of_origin", column = @Column(name = "place_of_origin"))
+	})
+	private PlaceofOrigin place;
 	
 	//By Default, OnetoMany FetchType is LAZY
 	// **ToMany - By Default - LAZY fetching
 	@OneToMany(mappedBy = "artist")
+	@JsonIgnore
 	private List<Song> songs = new ArrayList<>();
 	
 	//To customize Join Table name and fields
@@ -40,9 +62,11 @@ public class Artist {
 	@JoinTable(name = "Artist_Audience",
 			joinColumns = @JoinColumn(name = "Artist_Id"), 
 			inverseJoinColumns = @JoinColumn(name = "Audience_ID"))
+	@JsonIgnore
 	private List<Audience> audiences = new ArrayList<>();
 	
 	@ManyToOne
+	@JsonIgnore
 	private Genre genre;
 	
 	protected Artist() {
@@ -64,6 +88,15 @@ public class Artist {
 		this.name = name;
 	}
 	
+	@JsonProperty("Home")
+	public PlaceofOrigin getPlace_of_origin() {
+		return place;
+	}
+
+	public void setPlace_of_origin(PlaceofOrigin place_of_origin) {
+		this.place = place_of_origin;
+	}
+
 	public List<Song> getSongs() {
 		return songs;
 	}
