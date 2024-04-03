@@ -35,9 +35,14 @@ public class SongController {
 		return songService.getAllSongs();
 	}
 	
-	@GetMapping("/songs/artist/{artistId}")
-	public List<Song> retrieveAllSongsByArtists(@PathVariable long artistId) {
-		return songService.getSongsByArtist(artistId);
+	@GetMapping("/songs/artist/id/{artistId}")
+	public List<Song> retrieveAllSongsByArtistId(@PathVariable long artistId) {
+		return songService.getSongsByArtistId(artistId);
+	}
+	
+	@GetMapping("/songs/artist/{artistName}")
+	public List<Song> retrieveAllSongsByArtistName(@PathVariable String artistName) {
+		return songService.getSongsByArtistName(artistName);
 	}
 
 	@GetMapping("/songs/{id}")

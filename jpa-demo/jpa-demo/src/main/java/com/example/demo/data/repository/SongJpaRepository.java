@@ -11,4 +11,6 @@ import com.example.demo.data.entity.Song;
 public interface SongJpaRepository extends JpaRepository<Song, Long> {
 	
 	public List<Song> findSongByArtistId(long artistId);
+	
+	public List<Song> findSongByArtistName(String artistName);
 }

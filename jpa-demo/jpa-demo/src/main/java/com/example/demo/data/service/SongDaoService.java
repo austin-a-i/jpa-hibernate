@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.demo.data.entity.Artist;
 import com.example.demo.data.entity.Song;
 import com.example.demo.data.exception.ResourceNotFoundException;
 import com.example.demo.data.repository.ArtistJpaRepository;
@@ -41,11 +42,20 @@ public class SongDaoService {
 		return entityModel;
 	}
 	
-	public List<Song> getSongsByArtist(long artistId) {
+	public List<Song> getSongsByArtistId(long artistId) {
 		artistJpaRepository.findById(artistId)
 			.orElseThrow(() -> new ResourceNotFoundException("Not found id: " + artistId));
 		List<Song> songByArtistId = songRepository.findSongByArtistId(artistId);
 		return songByArtistId;
+	}
+	
+	public List<Song> getSongsByArtistName(String artistName) {
+		Optional<Artist> artist = artistJpaRepository.findArtistByName(artistName);
+		if(artist.isEmpty()) {
+			throw new ResourceNotFoundException("Not found Artist with name " + artistName);
+		}
+		List<Song> songByArtistName = songRepository.findSongByArtistName(artistName);
+		return songByArtistName;
 	}
 	
 	public ResponseEntity<Song> addSongIfArtistExist(Song song) {
